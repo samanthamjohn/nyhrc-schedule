@@ -137,6 +137,7 @@ DEPENDENCIES
   rails (= 4.0.0.beta1)
   sass-rails (~> 4.0.0.beta1)
   slim
+  sprockets-rails
   therubyracer
   turbolinks
   twitter-bootstrap-rails
