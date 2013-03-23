@@ -7,9 +7,9 @@ div class="navbar navbar-static-top navbar-fixed-top"
           span class="icon-bar"
       div class="brand" NYHRC Schedule
       div class="nav-collapse collapse"
-        ul.nav.nav-tabs
+        ul class="nav nav-tabs"
           - days.each do |weekday|
             - klass = weekday == day ? "active" : ""
-            li class="weekday-link #{klass} #{weekday.downcase}"
-              = link_to(weekday, schedule_path(day: weekday.downcase), "data-weekday" => weekday.downcase)
+            li class="#{klass}"
+              = link_to(weekday, "##{weekday.downcase}", "data-toggle" => "tab")
 

@@ -1,61 +1,61 @@
 - days = %w(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
-- if params["day"]
-  - day = params[:day].titlecase
-- else
-  - day = Date.today.strftime("%A")
+- day = Date.today.strftime("%A")
 
-= render "nav", days: days, day: day
-div class="#{day.downcase} weekday-wrapper" data-weekday=day.downcase
-  - @page.css("table").each do |t|
-    - table_day = t.css('caption').text
-    - if days.include?(table_day)
-      div class=table_day.downcase
-        h1
-          = table_day
-        table.table.table-striped
-          thead
-            th Time
-            th Class
-            th Instructor
-            th Location
-          tbody
-            - t.css('tr').each do |row|
-              - class_title = row.css("td.views-field-field-class-title")[0].text
-              - class_location = row.css('.views-field-field-class-location')[0].text
-              - class_start = row.css('.views-field-field-class-start-time')[0].text
-              - class_end = row.css('.views-field-field-class-end-time')[0].text
-              - instructor = row.css('.views-field-field-class-instructor')[0].text
-              - @approved_locations.each do |c|
-                - if class_location.downcase.match(c)
-                  - @approved_classes.each do |cc|
-                    - if class_title.downcase.match(cc)
-                      tr
-                        - class_start_int = class_start.gsub(/\D+/, '').to_i
-                        - if class_start_int < 1200
-                          - class_start = class_start.gsub(/-/, 'am')
-                        - elsif class_start_int < 1300
-                          - class_start = class_start.gsub(/-/, 'pm')
-                        - else
-                          - class_start = "#{number_with_precision(((class_start_int - 1200)/100.0), precision: 2)} pm".gsub('.', ':')
+div class="tabbable"
+  = render "nav", days: days, day: day
 
-                        - class_end_int = class_end.gsub(/\D+/, '').to_i
-                        - if class_end_int < 1200
-                          - class_end = "#{class_end}am"
-                        - elsif class_end_int < 1300
-                          - class_end = "#{class_end}pm"
-                        - else
-                          - class_end = "#{number_with_precision(((class_end_int - 1200)/100.0), precision: 2)} pm".gsub('.', ':')
+  div class="tab-content"
+    - @page.css("table").each do |t|
+      - table_day = t.css('caption').text
+      - if days.include?(table_day)
+        - klass = day == table_day ? "active" : ""
+        div class="tab-pane #{klass}" id=table_day.downcase
+          h1
+            = table_day
+          table.table.table-striped
+            thead
+              th Time
+              th Class
+              th Instructor
+              th Location
+            tbody
+              - t.css('tr').each do |row|
+                - class_title = row.css("td.views-field-field-class-title")[0].text
+                - class_location = row.css('.views-field-field-class-location')[0].text
+                - class_start = row.css('.views-field-field-class-start-time')[0].text
+                - class_end = row.css('.views-field-field-class-end-time')[0].text
+                - instructor = row.css('.views-field-field-class-instructor')[0].text
+                - @approved_locations.each do |c|
+                  - if class_location.downcase.match(c)
+                    - @approved_classes.each do |cc|
+                      - if class_title.downcase.match(cc)
+                        tr
+                          - class_start_int = class_start.gsub(/\D+/, '').to_i
+                          - if class_start_int < 1200
+                            - class_start = class_start.gsub(/-/, 'am')
+                          - elsif class_start_int < 1300
+                            - class_start = class_start.gsub(/-/, 'pm')
+                          - else
+                            - class_start = "#{number_with_precision(((class_start_int - 1200)/100.0), precision: 2)} pm".gsub('.', ':')
+
+                          - class_end_int = class_end.gsub(/\D+/, '').to_i
+                          - if class_end_int < 1200
+                            - class_end = "#{class_end}am"
+                          - elsif class_end_int < 1300
+                            - class_end = "#{class_end}pm"
+                          - else
+                            - class_end = "#{number_with_precision(((class_end_int - 1200)/100.0), precision: 2)} pm".gsub('.', ':')
 
 
-                        td
-                          = class_start
-                          | - 
-                          = class_end
-                        td
-                          = class_title
-                        td= instructor
-                        td
-                          = class_location
-                      - break
-                  - break
+                          td
+                            = class_start
+                            | - 
+                            = class_end
+                          td
+                            = class_title
+                          td= instructor
+                          td
+                            = class_location
+                        - break
+                    - break
 
