@@ -4,23 +4,23 @@ require 'open-uri'
 class ScheduleController < ApplicationController
 
   APPROVED_CLASSES = %w(
-  Sculpt
-  IYoga
-  Stretch & Abs
-  Pilates Mat
-  Zumba
-  Pilates
-  Yoga
-  Abs
-  BodySculpt
-  Core
-  Fluidity
-  Melt
-  Pilates Mat
-  Boot
-  Assets
-  Dance
-  Barre
+  sculpt
+  iyoga
+  stretch & abs
+  pilates mat
+  zumba
+  pilates
+  yoga
+  abs
+  bodysculpt
+  core
+  fluidity
+  melt
+  pilates mat
+  boot
+  assets
+  dance
+  barre
   )
   def index
     @page = Nokogiri::HTML(open('http://nyhrc.com/find-class-instructor?field_class_location_id_value=All&field_class_category_value=All&field_class_instructor_value_selective=All&field_class_title_value_selective=All'))

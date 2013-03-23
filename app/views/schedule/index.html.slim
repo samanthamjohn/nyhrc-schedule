@@ -1,29 +1,62 @@
+ul style='overflow: hidden; list-style: none;'
+  li style="float: left; margin-left: 10px;"= link_to "Sunday", root_path(day: "Sunday")
+  li style="float: left; margin-left: 10px;"= link_to "Monday", root_path(day: "Monday")
+  li style="float: left; margin-left: 10px;"= link_to "Tuesday", root_path(day: "Tuesday")
+  li style="float: left; margin-left: 10px;"= link_to "Wednesday", root_path(day: "Wednesday")
+  li style="float: left; margin-left: 10px;"= link_to "Thursday", root_path(day: "Thursday")
+  li style="float: left; margin-left: 10px;"= link_to "Friday", root_path(day: "Friday")
+  li style="float: left; margin-left: 10px;"= link_to "Saturday", root_path(day: "Saturday")
+- if params[:day]
+  - day = params[:day] 
+- else
+  - day = Date.today.strftime("%A")
 - @page.css("table").each do |t|
-  - if t.css("caption").text == Date.today.strftime("%A")
+  - if t.css("caption").text == day
     h1= t.css("caption").text
-    ul
-      - t.css('tr').each do |row|
-        - class_title = row.css("td.views-field-field-class-title")[0].text
-        - class_location = row.css('.views-field-field-class-location')[0].text
-        - class_start = row.css('.views-field-field-class-start-time')[0].text
-        - class_end = row.css('.views-field-field-class-end-time')[0].text
-        - @approved_locations.each do |c|
-          - if class_location.match(c)
-            - @approved_classes.each do |cc|
-              - if class_title.match(cc)
-                li
-                  - class_start_int = class_start.gsub(/\D+/, '').to_i
-                  - class_end_int = class_end.gsub(/\D+/, '').to_i
-                  - if class_start_int < 1200
-                    - class_start = class_start.gsub(/-/, 'am')
-                  - elsif class_start_int < 1300
-                    - class_start = class_start.gsub(/-/, 'pm')
-                  - else
-                    - class_start = "#{(class_start_int - 1200)}"
-                  = class_start
-                  br
-                  = class_title
-                  br
-                  = class_location
+    table.table.table-striped
+      thead
+        th Time
+        th Class
+        th Instructor
+        th Location
+      tbody
+        - t.css('tr').each do |row|
+          - class_title = row.css("td.views-field-field-class-title")[0].text
+          - class_location = row.css('.views-field-field-class-location')[0].text
+          - class_start = row.css('.views-field-field-class-start-time')[0].text
+          - class_end = row.css('.views-field-field-class-end-time')[0].text
+          - instructor = row.css('.views-field-field-class-instructor')[0].text
+          - @approved_locations.each do |c|
+            - if class_location.downcase.match(c)
+              - @approved_classes.each do |cc|
+                - if class_title.downcase.match(cc)
+                  tr
+                    - class_start_int = class_start.gsub(/\D+/, '').to_i
+                    - if class_start_int < 1200
+                      - class_start = class_start.gsub(/-/, 'am')
+                    - elsif class_start_int < 1300
+                      - class_start = class_start.gsub(/-/, 'pm')
+                    - else
+                      - class_start = "#{number_with_precision(((class_start_int - 1200)/100.0), precision: 2)} pm".gsub('.', ':')
 
+                    - class_end_int = class_end.gsub(/\D+/, '').to_i
+                    - if class_end_int < 1200
+                      - class_end = "#{class_end}am"
+                    - elsif class_end_int < 1300
+                      - class_end = "#{class_end}pm"
+                    - else
+                      - class_end = "#{number_with_precision(((class_end_int - 1200)/100.0), precision: 2)} pm".gsub('.', ':')
+
+
+                    td
+                      = class_start
+                      | - 
+                      = class_end
+                    td
+                      = class_title
+                    td= instructor
+                    td
+                      = class_location
+                  - break
+              - break
 
