@@ -4,20 +4,7 @@
 - else
   - day = Date.today.strftime("%A")
 
-div class="navbar navbar-static-top navbar-fixed-top"
-  div class="navbar-inner"
-    div class="container"
-      a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"
-          span class="icon-bar"
-          span class="icon-bar"
-          span class="icon-bar"
-      div class="brand" NYHRC Schedule
-      div class="nav-collapse collapse"
-        ul.nav.nav-tabs
-          - days.each do |weekday|
-            - klass = weekday == day ? "active" : ""
-            li class="weekday-link #{klass} #{weekday.downcase}"
-              = link_to(weekday, schedule_path(day: weekday.downcase), "data-weekday" => weekday.downcase)
+= render "nav", days: days, day: day
 div class="#{day.downcase} weekday-wrapper" data-weekday=day.downcase
   - @page.css("table").each do |t|
     - table_day = t.css('caption').text
