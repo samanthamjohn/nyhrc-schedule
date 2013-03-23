@@ -3,6 +3,8 @@ changeDay = (day) ->
   $(".weekday-wrapper").removeClass(klass)
   $(".weekday-wrapper").addClass(day)
   $(".weekday-wrapper").data("weekday", day)
+  $(".weekday-link.#{klass}").removeClass("active")
+  $(".weekday-link.#{day}").addClass("active")
 
 $(".weekday-link a").on("click", (e) ->
   e.preventDefault()

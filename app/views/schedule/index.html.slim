@@ -1,11 +1,13 @@
 - days = %w(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
-ul
-  - days.each do |weekday|
-    li class='weekday-link'= link_to(weekday, schedule_path(day: weekday.downcase), "data-weekday" => weekday.downcase)
 - if params["day"]
   - day = params[:day].titlecase
 - else
   - day = Date.today.strftime("%A")
+ul.nav.nav-pills
+  - days.each do |weekday|
+    - klass = weekday == day ? "active" : ""
+    li class="weekday-link #{klass} #{weekday.downcase}"
+      = link_to(weekday, schedule_path(day: weekday.downcase), "data-weekday" => weekday.downcase)
 div class="#{day.downcase} weekday-wrapper" data-weekday=day.downcase
   - @page.css("table").each do |t|
     - table_day = t.css('caption').text
