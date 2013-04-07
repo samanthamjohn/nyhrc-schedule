@@ -28,6 +28,7 @@ class Schedule < ActiveRecord::Base
   def approved_classes(weekday)
     table = table_for(weekday)
     klasses = []
+    i = 0
     table.css('tr').each do |row|
       class_location = row.css('.views-field-field-class-location')[0].text
       APPROVED_LOCATIONS.each do |approved_location|
@@ -37,12 +38,14 @@ class Schedule < ActiveRecord::Base
             if class_title.downcase.match(approved_class)
               class_end = class_end_string( row.css('.views-field-field-class-end-time')[0].text)
               class_start = class_start_string(row.css('.views-field-field-class-start-time')[0].text)
+              i += 1
               klasses << Hashie::Mash.new(
                 title: class_title.gsub("\n", "").strip,
                 location: class_location.gsub("\n", "").strip,
                 start_time: class_start.gsub("\n", "").strip,
                 end_time: class_end.gsub("\n", "").strip,
                 instructor: row.css('.views-field-field-class-instructor')[0].text.gsub("\n", "").strip,
+                id: i
               )
               break
             end
