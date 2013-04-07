@@ -20,9 +20,9 @@ div class="tabbable"
             - @schedule.approved_classes(table_day).each do |klass|
               tr
                 td
-                  = klass.class_start
+                  = klass.start_time
                   | -
-                  = klass.class_end
-                td= klass.class_title
-                td= klass.class_instructor
-                td= klass.class_location
+                  = klass.end_time
+                td= klass.title
+                td= klass.instructor
+                td= klass.location

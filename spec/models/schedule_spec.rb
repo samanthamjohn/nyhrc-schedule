@@ -36,7 +36,7 @@ describe Schedule do
       num_classes_approved = 0
       tuesday_classes.each do |tuesday_class|
         Schedule::APPROVED_CLASSES.each do |approved_class|
-          if tuesday_class.class_title.downcase.match(approved_class)
+          if tuesday_class.title.downcase.match(approved_class)
             num_classes_approved += 1
             break
           end
@@ -52,7 +52,7 @@ describe Schedule do
       num_classes_approved = 0
       Schedule::APPROVED_LOCATIONS.each do |approved_location|
         monday_classes.each do |monday_class|
-          if monday_class.class_location.downcase.match(approved_location)
+          if monday_class.location.downcase.match(approved_location)
             num_classes_approved += 1
             next
           end
@@ -64,11 +64,11 @@ describe Schedule do
 
     it "should return classes in the correct format" do
       monday = schedule.approved_classes("Monday").first
-      monday.class_title.should be
-      monday.class_location.should be
-      monday.class_start.should be
-      monday.class_end.should be
-      monday.class_instructor.should be
+      monday.title.should be
+      monday.location.should be
+      monday.start_time.should be
+      monday.end_time.should be
+      monday.instructor.should be
     end
   end
 

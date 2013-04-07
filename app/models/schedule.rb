@@ -38,11 +38,11 @@ class Schedule < ActiveRecord::Base
               class_end = class_end_string( row.css('.views-field-field-class-end-time')[0].text)
               class_start = class_start_string(row.css('.views-field-field-class-start-time')[0].text)
               klasses << Hashie::Mash.new(
-                class_title: class_title.gsub("\n", "").strip,
-                class_location: class_location.gsub("\n", "").strip,
-                class_start: class_start.gsub("\n", "").strip,
-                class_end: class_end.gsub("\n", "").strip,
-                class_instructor: row.css('.views-field-field-class-instructor')[0].text.gsub("\n", "").strip,
+                title: class_title.gsub("\n", "").strip,
+                location: class_location.gsub("\n", "").strip,
+                start_time: class_start.gsub("\n", "").strip,
+                end_time: class_end.gsub("\n", "").strip,
+                instructor: row.css('.views-field-field-class-instructor')[0].text.gsub("\n", "").strip,
               )
               break
             end
