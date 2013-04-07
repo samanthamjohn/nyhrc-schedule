@@ -7,3 +7,12 @@ development:
   password:
   host: localhost
 
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: nyhrc_test
+  pool: 5
+  username:
+  password:
+  host: localhost
+
