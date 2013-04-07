@@ -71,4 +71,12 @@ describe Schedule do
       monday.class_instructor.should be
     end
   end
+
+  describe "as_json" do
+    it "should render the approved classes for each day" do
+      json = schedule.as_json
+      json[:schedule].count.should == 7
+      json[:schedule]["Monday"]["classes"].count.should == schedule.approved_classes("Monday").count
+    end
+  end
 end
