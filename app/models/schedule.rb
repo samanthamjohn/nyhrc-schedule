@@ -79,13 +79,15 @@ class Schedule < ActiveRecord::Base
   end
 
   def as_json
-    schedule= {}
+    schedule= []
     DAYS.each do |day|
+      day_hash = {}
       klasses = []
       approved_classes(day).each do |approved_class|
         klasses << approved_class.to_hash
       end
-      schedule[day] = {"classes" => klasses}
+      day_hash = {"day" => day, "classes" => klasses}
+      schedule << day_hash
     end
     { schedule: schedule }
   end
