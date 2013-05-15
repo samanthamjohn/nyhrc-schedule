@@ -5,7 +5,7 @@ class Schedule < ActiveRecord::Base
   APPROVED_CLASSES = %w(sculpt iyoga stretch & abs pilates mat zumba
   pilates yoga abs bodysculpt core fluidity melt pilates mat boot
   assets dance barre vinyasa)
-  APPROVED_LOCATIONS = %w(23rd 13th 21st astor)
+  APPROVED_LOCATIONS = %w(23rd 13th 21st astor cooper)
   def tables
     page = Nokogiri::HTML.parse(html)
     tables = []
