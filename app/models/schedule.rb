@@ -4,7 +4,7 @@ class Schedule < ActiveRecord::Base
   DAYS = %w(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
   APPROVED_CLASSES = %w(sculpt iyoga stretch & abs pilates mat zumba
   pilates yoga abs bodysculpt core fluidity melt pilates mat boot
-  assets dance barre)
+  assets dance barre vinyasa)
   APPROVED_LOCATIONS = %w(23rd 13th 21st astor)
   def tables
     page = Nokogiri::HTML.parse(html)
