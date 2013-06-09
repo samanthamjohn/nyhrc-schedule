@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130407143002) do
+ActiveRecord::Schema.define(version: 20130609142905) do
 
   create_table "schedules", force: true do |t|
-    t.text     "html"
+    t.text     "schedule_data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

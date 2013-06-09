@@ -17,7 +17,7 @@ div class="tabbable"
             th Instructor
             th Location
           tbody
-            - @schedule.approved_classes(table_day).each do |klass|
+            - @schedule.schedule_data[table_day].each do |klass|
               tr
                 td
                   = klass.start_time

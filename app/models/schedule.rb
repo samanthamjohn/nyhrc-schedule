@@ -6,6 +6,19 @@ class Schedule < ActiveRecord::Base
   pilates yoga abs bodysculpt core fluidity melt pilates mat boot
   assets dance barre vinyasa)
   APPROVED_LOCATIONS = %w(23rd 13th 21st astor cooper)
+
+  serialize :schedule_data
+  attr_accessor :html
+
+  def html=(html)
+    @html = html
+    schedule_hash = {}
+    DAYS.each do |day|
+      schedule_hash[day] =self.approved_classes(day)
+    end
+    self.schedule_data = schedule_hash
+  end
+
   def tables
     page = Nokogiri::HTML.parse(html)
     tables = []
